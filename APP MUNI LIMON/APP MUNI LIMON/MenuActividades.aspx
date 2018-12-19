@@ -1,17 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Home.aspx.cs" Inherits="Home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MenuActividades.aspx.cs" Inherits="Home" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <title>Menú de Actividades - Administración</title>
     <link href="Estilos/Diseño2.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
         <ul class="topnav">
-            <li><a class="active">Administración hotel montaña</a></li>
+            <img src="https://drive.google.com/file/d/1AxX9h1QDphzGvVrFRXtiC4-_vrEwiFy4/view?usp=sharing" alt="Logo" style="width:125px;height:135px;">
             <li><a href="frmLogin.aspx">Registrar información de clientes</a></li>
             <li><a href="#contact">Registrar usuario</a></li>
             <li><a href="#contact">Mantenimiento de habitaciones</a></li>
@@ -38,7 +38,7 @@
                <asp:ListItem>No tiene problema</asp:ListItem>
            </asp:DropDownList>
            <br />
-           <asp:Button ID="btnGuardar" runat="server" Text="Registrar cliente" OnClick="btnGuardar_Click" class="next action-button" width="300px"/>
+           <asp:Button ID="btnGuardar" runat="server" Text="Registrar cliente" class="next action-button" width="300px"/>
        </fieldset>
     </form>
 </body>

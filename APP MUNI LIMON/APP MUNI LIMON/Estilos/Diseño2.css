@@ -120,3 +120,9 @@ font-family: montserrat;
 color: #2C3E50;
 font-size: 13px;
 }
+
+.logo_muni {
+    background-image: url('https://drive.google.com/file/d/1AxX9h1QDphzGvVrFRXtiC4-_vrEwiFy4/view?usp=sharing');
+    background-repeat: no-repeat;
+    background-position: 50% 10px;
+}

@@ -5,12 +5,16 @@
 * {margin: 0; padding: 0;}
 
 html {
-	height: 100%;
-	/*Image only BG fallback*/
-	
-	/*background = gradient + image pattern combo*/
-	background: 
-		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+    height: 100%;
+    /*Image only BG fallback*/
+    /*background = gradient + image pattern combo*/
+    /*background: 
+		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));*/
+    background: #b4e391; /* Old browsers */
+    background: -moz-linear-gradient(top, #b4e391 0%, #61c419 1%, #b4e391 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #b4e391 0%,#61c419 1%,#b4e391 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #b4e391 0%,#61c419 1%,#b4e391 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#b4e391',GradientType=0 );
 }
 
 body {
@@ -56,7 +60,7 @@ body {
 /*buttons*/
 #form1 .action-button {
 	width: 100px;
-	background: #27AE60;
+	background: #2BD822;
 	font-weight: bold;
 	color: white;
 	border: 0 none;
@@ -66,18 +70,19 @@ body {
 	margin: 10px 5px;
 }
 #form1 .action-button:hover, #msform .action-button:focus {
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #2BD822;
 }
 /*headings*/
 .fs-title {
-	font-size: 15px;
-	text-transform: uppercase;
-	color: #2C3E50;
-	margin-bottom: 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #19346A;
+    margin-bottom: 10px;
 }
+
 .fs-subtitle {
-	font-weight: normal;
-	font-size: 13px;
-	color: #666;
-	margin-bottom: 20px;
+    font-weight: normal;
+    font-size: 13px;
+    color: #19346A;
+    margin-bottom: 20px;
 }
