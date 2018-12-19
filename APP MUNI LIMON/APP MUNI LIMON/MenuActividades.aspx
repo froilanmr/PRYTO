@@ -11,7 +11,6 @@
 <body>
     <form id="form1" runat="server">
         <ul class="topnav">
-            <img src="https://drive.google.com/file/d/1AxX9h1QDphzGvVrFRXtiC4-_vrEwiFy4/view?usp=sharing" alt="Logo" style="width:125px;height:135px;">
             <li><a href="frmLogin.aspx">Registrar información de clientes</a></li>
             <li><a href="#contact">Registrar usuario</a></li>
             <li><a href="#contact">Mantenimiento de habitaciones</a></li>
