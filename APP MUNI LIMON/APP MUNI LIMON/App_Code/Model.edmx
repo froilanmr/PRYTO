@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MunicipalidadModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actividades">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="fecha" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipoActividad" Type="varchar" MaxLength="200" />
+          <Property Name="direccion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="5000" Nullable="false" />
+          <Property Name="cupos" Type="int" Nullable="false" />
+          <Property Name="imagenes" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inscripciones">
+          <Key>
+            <PropertyRef Name="idInscripcion" />
+          </Key>
+          <Property Name="tipoActividad" Type="varchar" MaxLength="200" />
+          <Property Name="actividad" Type="varchar" MaxLength="200" />
+          <Property Name="correoInscrito" Type="varchar" MaxLength="1000" />
+          <Property Name="idInscripcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Municipalidad.dbo.Noticias' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Noticias">
+          <Key>
+            <PropertyRef Name="titulo" />
+            <PropertyRef Name="descripcion" />
+          </Key>
+          <Property Name="titulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="5000" Nullable="false" />
+          <Property Name="multimedia" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Municipalidad.dbo.Sugerencias' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Sugerencias">
+          <Key>
+            <PropertyRef Name="numeroSugerencia" />
+          </Key>
+          <Property Name="numeroSugerencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isAnonima" Type="int" />
+          <Property Name="correo" Type="varchar" MaxLength="1000" />
+          <Property Name="tipoTramite" Type="varchar" MaxLength="200" />
+          <Property Name="valoracion" Type="int" />
+          <Property Name="descripcion" Type="varchar" MaxLength="5000" />
+        </EntityType>
+        <EntityType Name="tipoActividades">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="5000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="correo" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="contrasenna" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="telefono" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Actividad__tipoA__6477ECF3">
+          <End Role="tipoActividades" Type="Self.tipoActividades" Multiplicity="0..1" />
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoActividades">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="tipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__activ__68487DD7">
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="0..1" />
+          <End Role="Inscripciones" Type="Self.Inscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actividades">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="Inscripciones">
+              <PropertyRef Name="actividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__corre__693CA210">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Inscripciones" Type="Self.Inscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="correo" />
+            </Principal>
+            <Dependent Role="Inscripciones">
+              <PropertyRef Name="correoInscrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__tipoA__6754599E">
+          <End Role="tipoActividades" Type="Self.tipoActividades" Multiplicity="0..1" />
+          <End Role="Inscripciones" Type="Self.Inscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoActividades">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="Inscripciones">
+              <PropertyRef Name="tipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MunicipalidadModelStoreContainer">
+          <EntitySet Name="Actividades" EntityType="Self.Actividades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inscripciones" EntityType="Self.Inscripciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoActividades" EntityType="Self.tipoActividades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Noticias" EntityType="Self.Noticias" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Noticias].[titulo] AS [titulo], 
+    [Noticias].[descripcion] AS [descripcion], 
+    [Noticias].[multimedia] AS [multimedia]
+    FROM [dbo].[Noticias] AS [Noticias]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Sugerencias" EntityType="Self.Sugerencias" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Sugerencias].[numeroSugerencia] AS [numeroSugerencia], 
+    [Sugerencias].[isAnonima] AS [isAnonima], 
+    [Sugerencias].[correo] AS [correo], 
+    [Sugerencias].[tipoTramite] AS [tipoTramite], 
+    [Sugerencias].[valoracion] AS [valoracion], 
+    [Sugerencias].[descripcion] AS [descripcion]
+    FROM [dbo].[Sugerencias] AS [Sugerencias]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Actividad__tipoA__6477ECF3" Association="Self.FK__Actividad__tipoA__6477ECF3">
+            <End Role="tipoActividades" EntitySet="tipoActividades" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__activ__68487DD7" Association="Self.FK__Inscripci__activ__68487DD7">
+            <End Role="Actividades" EntitySet="Actividades" />
+            <End Role="Inscripciones" EntitySet="Inscripciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__corre__693CA210" Association="Self.FK__Inscripci__corre__693CA210">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Inscripciones" EntitySet="Inscripciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__tipoA__6754599E" Association="Self.FK__Inscripci__tipoA__6754599E">
+            <End Role="tipoActividades" EntitySet="tipoActividades" />
+            <End Role="Inscripciones" EntitySet="Inscripciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MunicipalidadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Actividades">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoActividad" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cupos" Type="Int32" Nullable="false" />
+          <Property Name="imagenes" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tipoActividades" Relationship="Self.FK__Actividad__tipoA__6477ECF3" FromRole="Actividades" ToRole="tipoActividades" />
+          <NavigationProperty Name="Inscripciones" Relationship="Self.FK__Inscripci__activ__68487DD7" FromRole="Actividades" ToRole="Inscripciones" />
+        </EntityType>
+        <EntityType Name="Inscripciones">
+          <Key>
+            <PropertyRef Name="idInscripcion" />
+          </Key>
+          <Property Name="tipoActividad" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="actividad" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="correoInscrito" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="idInscripcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Actividades" Relationship="Self.FK__Inscripci__activ__68487DD7" FromRole="Inscripciones" ToRole="Actividades" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Inscripci__corre__693CA210" FromRole="Inscripciones" ToRole="Usuario" />
+          <NavigationProperty Name="tipoActividades" Relationship="Self.FK__Inscripci__tipoA__6754599E" FromRole="Inscripciones" ToRole="tipoActividades" />
+        </EntityType>
+        <EntityType Name="tipoActividades">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actividades" Relationship="Self.FK__Actividad__tipoA__6477ECF3" FromRole="tipoActividades" ToRole="Actividades" />
+          <NavigationProperty Name="Inscripciones" Relationship="Self.FK__Inscripci__tipoA__6754599E" FromRole="tipoActividades" ToRole="Inscripciones" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="correo" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasenna" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Inscripciones" Relationship="Self.FK__Inscripci__corre__693CA210" FromRole="Usuario" ToRole="Inscripciones" />
+        </EntityType>
+        <EntityType Name="Noticias">
+          <Key>
+            <PropertyRef Name="titulo" />
+            <PropertyRef Name="descripcion" />
+          </Key>
+          <Property Name="titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="multimedia" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Sugerencias">
+          <Key>
+            <PropertyRef Name="numeroSugerencia" />
+          </Key>
+          <Property Name="numeroSugerencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isAnonima" Type="Int32" />
+          <Property Name="correo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="tipoTramite" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="valoracion" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Actividad__tipoA__6477ECF3">
+          <End Role="tipoActividades" Type="Self.tipoActividades" Multiplicity="0..1" />
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoActividades">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="tipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__activ__68487DD7">
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="0..1" />
+          <End Role="Inscripciones" Type="Self.Inscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actividades">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="Inscripciones">
+              <PropertyRef Name="actividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__corre__693CA210">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Inscripciones" Type="Self.Inscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="correo" />
+            </Principal>
+            <Dependent Role="Inscripciones">
+              <PropertyRef Name="correoInscrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__tipoA__6754599E">
+          <End Role="tipoActividades" Type="Self.tipoActividades" Multiplicity="0..1" />
+          <End Role="Inscripciones" Type="Self.Inscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoActividades">
+              <PropertyRef Name="nombre" />
+            </Principal>
+            <Dependent Role="Inscripciones">
+              <PropertyRef Name="tipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MunicipalidadEntidad" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actividades" EntityType="Self.Actividades" />
+          <EntitySet Name="Inscripciones" EntityType="Self.Inscripciones" />
+          <EntitySet Name="tipoActividades" EntityType="Self.tipoActividades" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="Noticias" EntityType="Self.Noticias" />
+          <EntitySet Name="Sugerencias" EntityType="Self.Sugerencias" />
+          <AssociationSet Name="FK__Actividad__tipoA__6477ECF3" Association="Self.FK__Actividad__tipoA__6477ECF3">
+            <End Role="tipoActividades" EntitySet="tipoActividades" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__activ__68487DD7" Association="Self.FK__Inscripci__activ__68487DD7">
+            <End Role="Actividades" EntitySet="Actividades" />
+            <End Role="Inscripciones" EntitySet="Inscripciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__corre__693CA210" Association="Self.FK__Inscripci__corre__693CA210">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Inscripciones" EntitySet="Inscripciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__tipoA__6754599E" Association="Self.FK__Inscripci__tipoA__6754599E">
+            <End Role="tipoActividades" EntitySet="tipoActividades" />
+            <End Role="Inscripciones" EntitySet="Inscripciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MunicipalidadModelStoreContainer" CdmEntityContainer="MunicipalidadEntidad">
+          <EntitySetMapping Name="Actividades">
+            <EntityTypeMapping TypeName="MunicipalidadModel.Actividades">
+              <MappingFragment StoreEntitySet="Actividades">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="tipoActividad" ColumnName="tipoActividad" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cupos" ColumnName="cupos" />
+                <ScalarProperty Name="imagenes" ColumnName="imagenes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inscripciones">
+            <EntityTypeMapping TypeName="MunicipalidadModel.Inscripciones">
+              <MappingFragment StoreEntitySet="Inscripciones">
+                <ScalarProperty Name="tipoActividad" ColumnName="tipoActividad" />
+                <ScalarProperty Name="actividad" ColumnName="actividad" />
+                <ScalarProperty Name="correoInscrito" ColumnName="correoInscrito" />
+                <ScalarProperty Name="idInscripcion" ColumnName="idInscripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoActividades">
+            <EntityTypeMapping TypeName="MunicipalidadModel.tipoActividades">
+              <MappingFragment StoreEntitySet="tipoActividades">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="MunicipalidadModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contrasenna" ColumnName="contrasenna" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Noticias">
+            <EntityTypeMapping TypeName="MunicipalidadModel.Noticias">
+              <MappingFragment StoreEntitySet="Noticias">
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="multimedia" ColumnName="multimedia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sugerencias">
+            <EntityTypeMapping TypeName="MunicipalidadModel.Sugerencias">
+              <MappingFragment StoreEntitySet="Sugerencias">
+                <ScalarProperty Name="numeroSugerencia" ColumnName="numeroSugerencia" />
+                <ScalarProperty Name="isAnonima" ColumnName="isAnonima" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="tipoTramite" ColumnName="tipoTramite" />
+                <ScalarProperty Name="valoracion" ColumnName="valoracion" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
