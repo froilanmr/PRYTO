@@ -7,26 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+//using System;
+//using System.Data.Entity;
+//using System.Data.Entity.Infrastructure;
 
-public partial class MunicipalidadEntidad : DbContext
-{
-    public MunicipalidadEntidad()
-        : base("name=MunicipalidadEntidad")
-    {
-    }
+//public partial class MunicipalidadEntidad : DbContext
+//{
+//    public MunicipalidadEntidad()
+//        : base("name=MunicipalidadEntidad")
+//    {
+//    }
 
-    protected override void OnModelCreating(DbModelBuilder modelBuilder)
-    {
-        throw new UnintentionalCodeFirstException();
-    }
+//    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+//    {
+//        throw new UnintentionalCodeFirstException();
+//    }
 
-    public virtual DbSet<Actividades> Actividades { get; set; }
-    public virtual DbSet<Inscripciones> Inscripciones { get; set; }
-    public virtual DbSet<tipoActividades> tipoActividades { get; set; }
-    public virtual DbSet<Usuario> Usuario { get; set; }
-    public virtual DbSet<Noticias> Noticias { get; set; }
-    public virtual DbSet<Sugerencias> Sugerencias { get; set; }
-}
+//    public virtual DbSet<Actividades> Actividades { get; set; }
+//    public virtual DbSet<Inscripciones> Inscripciones { get; set; }
+//    public virtual DbSet<tipoActividades> tipoActividades { get; set; }
+//    public virtual DbSet<Usuario> Usuario { get; set; }
+//    public virtual DbSet<Noticias> Noticias { get; set; }
+//    public virtual DbSet<Sugerencias> Sugerencias { get; set; }
+//}

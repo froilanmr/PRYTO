@@ -2,7 +2,10 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
 /*basic reset*/
-* {margin: 0; padding: 0;}
+* {
+    margin: 0;
+    padding: 0;
+}
 
 html {
     height: 100%;
@@ -11,67 +14,68 @@ html {
     /*background: 
 		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));*/
     background: #b4e391; /* Old browsers */
-    background: -moz-linear-gradient(top, #b4e391 0%, #61c419 1%, #b4e391 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #b4e391 0%,#61c419 1%,#b4e391 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #b4e391 0%,#61c419 1%,#b4e391 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(top, #009400 20%,#009ce7 30%,#ffffff 70%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #009400 20%,#009ce7 30%,#ffffff 70%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #009400 20%,#009ce7 30%,#ffffff 70%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#b4e391',GradientType=0 );
 }
 
 body {
-	font-family: montserrat, arial, verdana;
+    font-family: montserrat, arial, verdana;
 }
 /*form styles*/
 #form1 {
-	width: 400px;
-	margin: 250px auto;
-	text-align: center;
-	position: relative;
-}
-#form1 fieldset {
-	background: white;
-	border: 0 none;
-	border-radius: 3px;
-	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-	padding: 20px 30px;
-	box-sizing: border-box;
-	width: 80%;
-	margin: 0 10%;
-	
-	/*stacking fieldsets above each other*/
-	position: relative;
-}
-/*Hide all except first fieldset*/
-#form1 fieldset:not(:first-of-type) {
-	display: none;
-}
-/*inputs*/
-#form1 input, #msform textarea {
-	padding: 15px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	margin-bottom: 10px;
-	width: 100%;
-	box-sizing: border-box;
-	font-family: montserrat;
-	color: #2C3E50;
-	font-size: 13px;
+    width: 400px;
+    margin: 250px auto;
+    text-align: center;
+    position: relative;
 }
 
-/*buttons*/
-#form1 .action-button {
-	width: 100px;
-	background: #2BD822;
-	font-weight: bold;
-	color: white;
-	border: 0 none;
-	border-radius: 1px;
-	cursor: pointer;
-	padding: 10px 5px;
-	margin: 10px 5px;
-}
-#form1 .action-button:hover, #msform .action-button:focus {
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #2BD822;
-}
+    #form1 fieldset {
+        background: white;
+        border: 0 none;
+        border-radius: 3px;
+        box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+        padding: 20px 30px;
+        box-sizing: border-box;
+        width: 80%;
+        margin: 0 10%;
+        /*stacking fieldsets above each other*/
+        position: relative;
+    }
+        /*Hide all except first fieldset*/
+        #form1 fieldset:not(:first-of-type) {
+            display: none;
+        }
+    /*inputs*/
+    #form1 input, #msform textarea {
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: montserrat;
+        color: #2C3E50;
+        font-size: 13px;
+    }
+
+    /*buttons*/
+    #form1 .action-button {
+        width: 100px;
+        background: #009400;
+        font-weight: bold;
+        color: white;
+        border: 0 none;
+        border-radius: 1px;
+        cursor: pointer;
+        padding: 10px 5px;
+        margin: 10px 5px;
+    }
+
+        #form1 .action-button:hover, #msform .action-button:focus {
+            box-shadow: 0 0 0 2px white, 0 0 0 3px #2BD822;
+        }
 /*headings*/
 .fs-title {
     font-size: 15px;
