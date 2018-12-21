@@ -2,26 +2,51 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
 /*basic reset*/
-* {margin: 0; padding: 0;}
+* {
+    margin: 0;
+    padding: 0;
+}
 
 
 ul.topnav {
     list-style-type: none;
-    margin: 70px;
+    margin: 15px;
     padding: 0;
     overflow: hidden;
-    background-color: #13a123;
+    background-color: white;
 }
 
-ul.topnav li {float: right;}
-
-ul.topnav li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+ul.topnav1 {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #009400;
 }
+
+ul.topnav2 {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #009ce7;
+}
+
+    ul.topnav li, ul.topnav1 li, ul.topnav2 li {
+        float: right;
+    }
+
+        ul.topnav li a {
+            display: block;
+            color: #666;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border: 0 none;
+            border-radius: 1px;
+            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+        }
 
 html {
     height: 100%;
@@ -41,7 +66,6 @@ body {
         float: none;
     }
 }
-
 
 #form1 fieldset {
     text-align: center;
@@ -75,7 +99,7 @@ body {
 
 #form1 .action-button {
     width: 100px;
-    background: #13a123;
+    background: #009400;
     font-weight: bold;
     color: white;
     border: 0 none;
