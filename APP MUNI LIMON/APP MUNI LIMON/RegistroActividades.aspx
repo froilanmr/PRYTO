@@ -10,13 +10,13 @@
 </head>
 <body>
     <form id="form1" runat="server">
-       <ul class="topnav1">
+         <ul class="topnav1">
            <!--<li><a href="MenuActividades">Menú</a></li>-->
        </ul>
-       <ul class="topnav2">
+         <ul class="topnav2">
            <!--<li><a href="MenuActividades">Menú</a></li>-->
        </ul>
-       <ul class="topnav">
+         <ul class="topnav">
            <!--<li><a href="MenuActividades">Menú</a></li>-->
             <li><a>Perfil</a></li>
             <li><a>Log in</a></li>
@@ -31,23 +31,19 @@
         <fieldset>
            <h2 class="fs-title">Registro de Actividades</h2>
            <asp:TextBox ID="nombreActividad" runat="server" placeholder="Nombre de la Actividad"></asp:TextBox>
-            <asp:DropDownList ID="tipoActividades" runat="server" CssClass="mydropdownlist"></asp:DropDownList>
-            <asp:TextBox ID="fechaActividad" runat="server" placeholder="Fecha de actividad dd\mm\aaaa" TextMode="Date"></asp:TextBox>
-            <br />
-            <asp:TextBox ID="direccionActividad" runat="server" placeholder="Dirección de la actividad" Height="94px" TextMode="MultiLine" Width="409px"></asp:TextBox>
-            <br />
-            <br />
-            <asp:TextBox ID="descripcionActividad" runat="server" placeholder="Descripción de actividad" Height="94px" TextMode="MultiLine" Width="409px"></asp:TextBox>
-            <br />
-            <br />
-            <asp:TextBox ID="cuposActividad" runat="server" placeholder="Cupos Disponibles" TextMode="Number"></asp:TextBox>
-            <br />
+            <asp:DropDownList ID="tipoActividades" runat="server" CssClass="mydropdownlist">
+               <asp:ListItem>--Seleccione el tipo de actividad--</asp:ListItem>
+               <asp:ListItem>Tipo de Actividad 1</asp:ListItem>
+               <asp:ListItem>Tipo de Actividad 2</asp:ListItem>
+           </asp:DropDownList>
+            <asp:TextBox ID="fechaActividad" runat="server" placeholder="Fecha de actividad dd\mm\aaaa"></asp:TextBox>
+            <asp:TextBox ID="direccionActividad" runat="server" placeholder="Dirección de la actividad"></asp:TextBox>
+            <asp:TextBox ID="descripcionActividad" runat="server" placeholder="Descripción de actividad"></asp:TextBox>
+            <asp:TextBox ID="cuposActividad" runat="server" placeholder="Cupos Disponibles"></asp:TextBox>
            <h4 class="fs-title">Galería</h4>
-            <br />
-           <asp:FileUpload ID="galeriaActividades" runat="server" placeholder="Galería" AllowMultiple="True"></asp:FileUpload>
+           <asp:FileUpload ID="galeriaActividades" runat="server" placeholder="Galería"></asp:FileUpload>
            <br />
-            <br />
-           <asp:Button ID="registrarNoticia" runat="server" Text="Registrar" class="next action-button" width="300px" OnClick="registrarNoticia_Click"/>
+           <asp:Button ID="registrarNoticia" runat="server" Text="Registrar" class="next action-button" width="300px"/>
        </fieldset>
     </form>
 </body>

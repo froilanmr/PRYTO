@@ -5,34 +5,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Menú de Actividades</title>
-     <link href="Estilos/Navbar.css" rel="stylesheet" type="text/css" />
+    <title>Menú de Actividades - Administración</title>
+    <link href="Estilos/Diseño2.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
-         <ul class="topnav1">
-           <!--<li><a href="MenuActividades">Menú</a></li>-->
+        <ul class="topnav">
+            <li><a href="frmLogin.aspx">Registrar información de clientes</a></li>
+            <li><a href="#contact">Registrar usuario</a></li>
+            <li><a href="#contact">Mantenimiento de habitaciones</a></li>
+            <li class="right"><a href="frmLogin.aspx">Cerrar sesión</a></li> 
        </ul>
-         <ul class="topnav2">
-           <!--<li><a href="MenuActividades">Menú</a></li>-->
-       </ul>
-         <ul class="topnav">
-           <!--<li><a href="MenuActividades">Menú</a></li>-->
-            <li><a>Perfil</a></li>
-            <li><a>Log in</a></li>
-            <li><a>Tipos de Actividades</a></li>
-            <li><a>Actividades</a></li>
-            <li><a>Estadisticas</a></li>
-            <li><a>Sugerencias</a></li>
-            <li><a>Inscripciones</a></li>
-            <li><a>Noticias</a></li>
-            <li><a>Menú</a></li>
-            
-       </ul>
-        <fieldset>
-           <h2 class="fs-title">Menú de Actividades</h2>
-            <asp:Table ID="Table1" runat="server"></asp:Table>
-           <asp:Button ID="registrarNoticia" runat="server" Text="Registrar" class="next action-button" width="300px"/>
+       <fieldset>
+           <h2 class="fs-title">Ingrese los datos del nuevo cliente</h2>
+           <asp:TextBox ID="txtCedulaCliente" runat="server" placeholder="Cédula del cliente"></asp:TextBox>
+           <asp:TextBox ID="txtNumReserva" runat="server" placeholder="Número de reserva"></asp:TextBox>
+           <asp:DropDownList ID="ddlTipoCliente" runat="server" CssClass="mydropdownlist">
+               <asp:ListItem>--Seleccione el tipo de cliente--</asp:ListItem>
+               <asp:ListItem>Jurídico</asp:ListItem>
+               <asp:ListItem>Físico</asp:ListItem>
+           </asp:DropDownList>
+           <asp:TextBox ID="txtNomCliente" runat="server" placeholder="Nombre del cliente/Empresa"></asp:TextBox>
+           <asp:TextBox ID="txtTel1" runat="server" placeholder="Teléfono 1"></asp:TextBox>
+           <asp:TextBox ID="txtTel2" runat="server" placeholder="Teléfono 2"></asp:TextBox>
+           <asp:TextBox ID="txtCorreo" runat="server" placeholder="Correo electrónico"></asp:TextBox>
+           <asp:TextBox ID="txtProcedencia" runat="server" placeholder="Lugar de procedencia"></asp:TextBox>
+           <asp:DropDownList ID="ddlPreferencia" runat="server" CssClass="mydropdownlist">
+               <asp:ListItem>--Seleccione el tipo de preferencia--</asp:ListItem>
+               <asp:ListItem>Vegano</asp:ListItem>
+               <asp:ListItem>Vegetariano</asp:ListItem>
+               <asp:ListItem>No tiene problema</asp:ListItem>
+           </asp:DropDownList>
+           <br />
+           <asp:Button ID="btnGuardar" runat="server" Text="Registrar cliente" class="next action-button" width="300px"/>
        </fieldset>
     </form>
 </body>
