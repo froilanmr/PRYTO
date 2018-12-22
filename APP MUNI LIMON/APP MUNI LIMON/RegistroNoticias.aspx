@@ -32,11 +32,12 @@
         <fieldset>
            <h2 class="fs-title">Registro de Noticias</h2>
            <asp:TextBox ID="tituloNoticia" runat="server" placeholder="Titulo de Noticia"></asp:TextBox>
-           <asp:TextBox ID="descripcionNoticia" runat="server" placeholder="Descripción Noticia"></asp:TextBox>
+            <br />
+           <asp:TextBox ID="descripcionNoticia" runat="server" placeholder="Descripción Noticia" Height="295px" TextMode="MultiLine" Width="724px"></asp:TextBox>
            <h4 class="fs-title">Galería</h4>
-           <asp:FileUpload ID="galeriaNoticia" runat="server" placeholder="Galería"></asp:FileUpload>
+           <asp:FileUpload ID="galeriaNoticia" runat="server" placeholder="Galería" AllowMultiple="True"></asp:FileUpload>
            <br />
-           <asp:Button ID="registrarNoticia" runat="server" Text="Registrar" class="next action-button" width="300px"/>
+           <asp:Button ID="registrarNoticia" runat="server" Text="Registrar" class="next action-button" width="300px" OnClick="registrarNoticia_Click"/>
        </fieldset>
     </form>
 </body>

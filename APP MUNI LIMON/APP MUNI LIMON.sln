@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "APP MUNI LIMON", "APP MUNI LIMON\", "{95F64E08-6A36-4D40-93D2-0818F3F5D6A8}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -25,6 +25,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "APP MUNI LIMON", "APP MUNI 
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proyecto_AC", "..\..\..\TEC\AC\Proyecto_AC\Proyecto_AC\Proyecto_AC.csproj", "{1F911088-A033-4A86-9324-B88EADB25953}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +37,15 @@ Global
 		{95F64E08-6A36-4D40-93D2-0818F3F5D6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95F64E08-6A36-4D40-93D2-0818F3F5D6A8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{95F64E08-6A36-4D40-93D2-0818F3F5D6A8}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1F911088-A033-4A86-9324-B88EADB25953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F911088-A033-4A86-9324-B88EADB25953}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F911088-A033-4A86-9324-B88EADB25953}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F911088-A033-4A86-9324-B88EADB25953}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FF51EA70-DEA4-4043-B75F-0130A4077C1A}
+		SolutionGuid = {2A7662ED-D7C7-467A-A61F-6A96AFA6015B}
 	EndGlobalSection
 EndGlobal
