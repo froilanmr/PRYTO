@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,26 +26,45 @@ public partial class RegistroNoticias : System.Web.UI.Page
 
     protected void registrarNoticia_Click(object sender, EventArgs e)
     {
-        /*
-        string filepath = Server.MapPath("\\Datos");
-        HttpFileCollection uploadedFiles = Request.Files;
-        Span1.Text = string.Empty;
-
-        for(int i = 0;i < uploadedFiles.Count;i++) {
-            HttpPostedFile userPostedFile = uploadedFiles[i];
-            try {
-                if (userPostedFile.ContentLength > 0) {
-                    MsgBox(galeriaNoticia.PostedFiles.ToString(), Page, this);
-
-                    Span1.Text += "File Name: " + userPostedFile.FileName + "<br>";
-              
-                   userPostedFile.SaveAs(filepath + "\\" +    Path.GetFileName(userPostedFile.FileName));                  
-                   Span1.Text += "Location where saved: " +   filepath + "\\" +   Path.GetFileName(userPostedFile.FileName) + "<p>";
+        String listaIMGS = "";
+        if(!tituloNoticia.Text.Equals("") || !descripcionNoticia.Text.Equals(""))
+        {
+            if (galeriaNoticia.HasFiles)
+            {
+                foreach (HttpPostedFile uploadedFile in galeriaNoticia.PostedFiles)
+                {
+                    uploadedFile.SaveAs(System.IO.Path.Combine(Server.MapPath("~/Images/Noticias/"), uploadedFile.FileName));
+                    listaIMGS += "~/Images/Noticias/" + uploadedFile.FileName + ",";
                 }
-            } catch(Exception Ex) {
-                Span1.Text += "Error: <br>" + Ex.Message;
             }
-        }*/
-        //MsgBox(galeriaNoticia.PostedFiles.ToString(), Page, this);
+            listaIMGS = listaIMGS.Remove(listaIMGS.Length - 1);
+            try
+            {
+                /* Conexión e inserción a la base de datos*/
+                NpgsqlConnection conectar = new NpgsqlConnection();
+                conectar.ConnectionString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
+                conectar.Open();
+                NpgsqlCommand insertar = new NpgsqlCommand("insert into noticia(titulo,descripcion,galeria) values ('" + tituloNoticia.Text + "', '" + descripcionNoticia.Text +
+                    "', '" + listaIMGS + "')", conectar);
+                insertar.ExecuteNonQuery();
+                conectar.Close();
+
+                MsgBox("¡Se registró la noticia!", Page, this);
+
+                tituloNoticia.Text = "";
+                descripcionNoticia.Text = "";
+            }
+            catch (Exception ex) // Excepción en caso de datos duplicados
+            {
+                MsgBox("¡Noticia Duplicada! Verifique el título.", Page, this);
+
+                tituloNoticia.Text = "";
+                descripcionNoticia.Text = "";
+            }
+        }
+        else
+        {
+            MsgBox("Debe de rellenar todos los campos.", Page, this);
+        }
     }
 }

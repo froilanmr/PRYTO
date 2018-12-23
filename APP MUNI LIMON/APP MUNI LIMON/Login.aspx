@@ -15,7 +15,7 @@
         <h3 class="fs-subtitle">Login</h3>
         <asp:TextBox ID="correoUsuario" runat="server" placeholder="Correo electronico"></asp:TextBox>
         <asp:TextBox type="contrasenaUsuario" ID="txtContraseña" runat="server" placeholder="Contraseña" ></asp:TextBox>
-        <asp:Button ID="btnIngresar" runat="server" Text="Ingresar" class="next action-button"/>
+        <asp:Button ID="btnIngresar" runat="server" Text="Ingresar" class="next action-button" OnClick="btnIngresar_Click"/>
         <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" class="next action-button" />
     </fieldset>
     </form>

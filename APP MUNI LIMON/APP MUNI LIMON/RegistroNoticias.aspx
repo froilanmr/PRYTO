@@ -35,7 +35,7 @@
             <br />
            <asp:TextBox ID="descripcionNoticia" runat="server" placeholder="Descripción Noticia" Height="295px" TextMode="MultiLine" Width="724px"></asp:TextBox>
            <h4 class="fs-title">Galería</h4>
-           <asp:FileUpload ID="galeriaNoticia" runat="server" placeholder="Galería" AllowMultiple="True"></asp:FileUpload>
+           <asp:FileUpload ID="galeriaNoticia" runat="server" placeholder="Galería" AllowMultiple="True" accept=".png,.jpg,.jpeg,.gif"></asp:FileUpload>
            <br />
            <asp:Button ID="registrarNoticia" runat="server" Text="Registrar" class="next action-button" width="300px" OnClick="registrarNoticia_Click"/>
        </fieldset>

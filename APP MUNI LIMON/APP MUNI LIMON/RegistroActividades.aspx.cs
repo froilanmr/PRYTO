@@ -40,67 +40,53 @@ public partial class RegistroActividades : System.Web.UI.Page
 
     protected void registrarNoticia_Click(object sender, EventArgs e)
     {
-        /*
-        MsgBox(galeriaActividades.PostedFile.FileName.ToString(), Page, this);
-        if (galeriaActividades.HasFile)     // Valida si hay archivos seleccionados
+        String listaIMGS = "";
+        if (!nombreActividad.Text.Equals("") || !fechaActividad.Text.Equals("") || !direccionActividad.Text.Equals("")
+            || !descripcionActividad.Text.Equals("") || !cuposActividad.Text.Equals(""))
         {
-            int iUploadedCnt = 0;
-            int iFailedCnt = 0;
-            HttpFileCollection hfc = Request.Files;
-
-            if (hfc.Count <= 10)    // 10 FILES RESTRICTION.
+            if (galeriaActividades.HasFiles)
             {
-                for (int i = 0; i <= hfc.Count - 1; i++)
+                foreach (HttpPostedFile uploadedFile in galeriaActividades.PostedFiles)
                 {
-                    HttpPostedFile hpf = hfc[i];
-                    if (hpf.ContentLength > 0)
-                    {
-                        if (!File.Exists(Server.MapPath("DATOS\\") +
-                            Path.GetFileName(hpf.FileName)))
-                        {
-                            DirectoryInfo objDir =
-                                new DirectoryInfo(Server.MapPath("DATOS\\"));
-
-                            string sFileName = Path.GetFileName(hpf.FileName);
-                            string sFileExt = Path.GetExtension(hpf.FileName);
-
-                            // CHECK FOR DUPLICATE FILES.
-                            FileInfo[] objFI =
-                                objDir.GetFiles(sFileName.Replace(sFileExt, "") + ".*");
-
-                            if (objFI.Length > 0)
-                            {
-                                // CHECK IF FILE WITH THE SAME NAME EXISTS 
-                                foreach (FileInfo file in objFI)
-                                {
-                                    string sFileName1 = objFI[0].Name;
-                                    string sFileExt1 = Path.GetExtension < objFI[0].Name;
-
-                                    if (sFileName1.Replace(sFileExt1, "") ==
-                                            sFileName.Replace(sFileExt, ""))
-                                    {
-                                        iFailedCnt += 1;        // NOT ALLOWING DUPLICATE.
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // SAVE THE FILE IN A FOLDER.
-                                hpf.SaveAs(Server.MapPath("DATOS\\") +
-                                    Path.GetFileName(hpf.FileName));
-                                iUploadedCnt += 1;
-                            }
-                        }
-                    }
+                    uploadedFile.SaveAs(System.IO.Path.Combine(Server.MapPath("~/Images/Actividades/"), uploadedFile.FileName));
+                    listaIMGS += "~/Images/Actividades/" + uploadedFile.FileName + ",";
                 }
-                //lblUploadStatus.Text = "<b>" + iUploadedCnt + "</b> file(s) Uploaded.";
-                //lblFailedStatus.Text = "<b>" + iFailedCnt + 
-                   // "</b> duplicate file(s) could not be uploaded.";
             }
-            //else lblUploadStatus.Text = "Max. 10 files allowed.";
+            listaIMGS = listaIMGS.Remove(listaIMGS.Length - 1);
+            try
+            {
+                /* Conexión e inserción a la base de datos*/
+                NpgsqlConnection conectar = new NpgsqlConnection();
+                conectar.ConnectionString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
+                conectar.Open();
+                NpgsqlCommand insertar = new NpgsqlCommand("insert into actividad values ('" + nombreActividad.Text + "', '" + fechaActividad.Text +
+                    "', '" + tipoActividades.Text + "', '"+ direccionActividad.Text + "', '"+ descripcionActividad.Text + "', " +
+                    Int32.Parse(cuposActividad.Text) + ", '" + listaIMGS +"')", conectar);
+                insertar.ExecuteNonQuery();
+                conectar.Close();
+
+                MsgBox("¡Se registró la actividad!", Page, this);
+
+                nombreActividad.Text = "";
+                fechaActividad.Text = "";
+                direccionActividad.Text = "";
+                descripcionActividad.Text = "";
+                cuposActividad.Text = "";
+            }
+            catch (Exception ex) // Excepción en caso de datos duplicados
+            {
+                MsgBox("¡Actividad Duplicada! Cambie el nombre de la actividad.", Page, this);
+
+                nombreActividad.Text = "";
+                fechaActividad.Text = "";
+                direccionActividad.Text = "";
+                descripcionActividad.Text = "";
+                cuposActividad.Text = "";
+            }
         }
-        //else lblUploadStatus.Text = "No files selected.";
-        */
+        else
+        {
+            MsgBox("Debe de rellenar todos los campos.", Page, this);
+        }
     }
 }
