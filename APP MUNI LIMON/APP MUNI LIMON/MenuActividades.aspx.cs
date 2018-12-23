@@ -11,7 +11,12 @@ public partial class Home : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
+        SqlConnection conn = new SqlConnection();
+        conn.ConnectionString = @"Data Source=municipalidad.database.windows.net";
+        conn.Open();
+        //MessageBox.Show("Conexion");
+        //SqlCommand smd
+        /*try
         {
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = "municipalidad.database.windows.net";
@@ -46,6 +51,6 @@ public partial class Home : System.Web.UI.Page
         {
             Console.WriteLine(ex.ToString());
         }
-        Console.ReadLine();
+        Console.ReadLine();*/
     }
 }

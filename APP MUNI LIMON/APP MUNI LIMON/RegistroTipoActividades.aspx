@@ -31,12 +31,9 @@
         <fieldset>
            <h2 class="fs-title">Registro de Tipos de Actividades</h2>
            <asp:TextBox ID="nombreTipoActividad" runat="server" placeholder="Nombre del tipo de Actividad"></asp:TextBox>
-            <br />
-            <asp:TextBox ID="descripcionTipoActividad" runat="server" placeholder="Descripción del tipo de actividad" Height="165px" TextMode="MultiLine" Width="405px"></asp:TextBox>
-            <br />
-            <br />
+            <asp:TextBox ID="descripcionTipoActividad" runat="server" placeholder="Descripción del tipo de actividad"></asp:TextBox>
            <br />
-           <asp:Button ID="registrarTipoActividad" runat="server" Text="Registrar" class="next action-button" width="300px" OnClick="registrarTipoActividad_Click"/>
+           <asp:Button ID="registrarTipoActividad" runat="server" Text="Registrar" class="next action-button" width="300px"/>
        </fieldset>
     </form>
 </body>
