@@ -6,7 +6,7 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Registro de Actividades</title>
-     <link href="Estilos/Navbar.css" rel="stylesheet" type="text/css" />
+     <link href="../../Estilos/Navbar.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">

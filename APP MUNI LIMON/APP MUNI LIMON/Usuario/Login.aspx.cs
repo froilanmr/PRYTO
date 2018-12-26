@@ -34,28 +34,7 @@ public partial class Login : System.Web.UI.Page
 
                     if (leer.Read())
                     {
-                        if (Convert.ToString(leer["tipousuario"]) == "1")
-                        {
-                            if (Convert.ToString(leer["habilitado"]) == "1")
-                            {
-                                Response.Redirect("frmMenuAdmin.aspx");
-                            }
-                        }
-                        else if (Convert.ToString(leer["tipousuario"]) == "2")
-                        {
-                            if (Convert.ToString(leer["habilitado"]) == "1")
-                            {
-                                Response.Redirect("frmMenuRecepcion.aspx");
-                            }
-                        }
-                        else if (Convert.ToString(leer["tipousuario"]) == "3")
-                        {
-                            Response.Redirect("frmcliente.aspx");
-                        }
-                        else
-                        {
-                            Response.Write("<script>window.alert('Este usuario no posee ningún perfil.');</script>");
-                        }
+                        Response.Redirect("MenuPrincipalUsuario.aspx");
                     }
                     else
                     {
