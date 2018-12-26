@@ -1,0 +1,107 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CRUD_TipoActividad.aspx.cs" Inherits="MenuTipoActividades" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="../scripts/jquery.blockUI.js"></script>
+<script type="text/javascript">
+    $(function () {
+        BlockUI("dvGrid");
+        $.blockUI.defaults.css = {};
+    });
+    function BlockUI(elementID) {
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        prm.add_beginRequest(function () {
+            $("#" + elementID).block({ message: '<div align = "center">' + '<img src="../imgs/loadingAnim.gif"/></div>',
+                css: {},
+                overlayCSS: { backgroundColor: '#000000', opacity: 0.6, border: '3px solid #63B2EB' }
+            });
+        });
+        prm.add_endRequest(function () {
+            $("#" + elementID).unblock();
+        });
+    };
+</script>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Menú Principal</title>
+     <link href="../Estilos/Navbar.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 158px;
+        }
+        .auto-style2 {
+            width: 924px;
+            height: 616px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+       <ul class="topnav1">
+           <!--<li><a href="MenuActividades">Menú</a></li>-->
+       </ul>
+       <ul class="topnav2">
+           <!--<li><a href="MenuActividades">Menú</a></li>-->
+       </ul>
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div id="dvGrid" style="padding-left: 300px; padding-top:50px" class="auto-style2">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" OnRowDataBound="OnRowDataBound"
+                    DataKeyNames="Nombre" OnRowEditing="OnRowEditing" OnRowCancelingEdit="OnRowCancelingEdit" PageSize = "3" AllowPaging ="true" OnPageIndexChanging = "OnPaging"
+                    OnRowUpdating="OnRowUpdating" OnRowDeleting="OnRowDeleting" EmptyDataText="No records has been added."
+                    Width="932px" Height="201px">
+                    <Columns>
+                        <asp:TemplateField HeaderText="Nombre" ItemStyle-Width="150">
+                            <ItemTemplate>
+                                <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("Nombre") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtNombre" runat="server" Text='<%# Eval("Nombre") %>' Height="100" Width="300" TextMode="MultiLine"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Descripcion" ItemStyle-Width="150">
+                            <ItemTemplate>
+                                <asp:Label ID="lblDescripcion" runat="server" Text='<%# Eval("Descripcion") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtDescripcion" runat="server" Text='<%# Eval("Descripcion") %>' Height="100" Width="400" TextMode="MultiLine"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
+                        <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true"
+                            ItemStyle-Width="150" />
+                    </Columns>
+                </asp:GridView>
+                <br />
+                <br />
+                <table border="1" style="border-collapse: collapse; padding-left:400px">
+                <tr>
+                    <td style="width: 150px">
+                        <asp:Label ID="Label2" runat="server" Text="Nombre del Tipo de Actividad" Width="261px"></asp:Label>
+                        <asp:TextBox ID="txtNombre" runat="server" Width="384px" Height="152px" TextMode="MultiLine" />
+                    
+                    </td>
+                </tr>
+                <caption>
+                    &nbsp;&nbsp;&nbsp;
+                    <tr>
+                        <td style="width: 400px">
+                            <asp:Label ID="Label1" runat="server" Text="Descripcion del Tipo de Actividad"></asp:Label>
+                            <asp:TextBox ID="txtDescripcion" runat="server" Height="152px" TextMode="MultiLine" Width="448px" />
+                        </td>
+                    </tr>
+                 </caption>
+                 <tr>
+                     <td class="auto-style1">&nbsp;&nbsp;&nbsp;
+                         <asp:Button ID="btnAdd" runat="server" Height="73px" OnClick="Insert" Text="Agregar" Width="443px" />
+                     </td>
+                 </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        </div>
+    </form>
+</body>
+</html>
