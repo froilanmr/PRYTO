@@ -1,10 +1,11 @@
 ﻿using Npgsql;
 using System;
 using System.Data;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class MenuTipoActividades : System.Web.UI.Page
+public partial class Administracion_CRUD_Noticias : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -16,10 +17,10 @@ public partial class MenuTipoActividades : System.Web.UI.Page
     private void BindGrid()
     {
         var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
-        string query = "select * from tipoActividad";
+        string query = "select titulo,descripcion, galeria from noticia";
         using (NpgsqlConnection conn = new NpgsqlConnection(connString))
         {
-            using(NpgsqlDataAdapter sda = new NpgsqlDataAdapter(query, conn))
+            using (NpgsqlDataAdapter sda = new NpgsqlDataAdapter(query, conn))
             {
                 using (DataTable dt = new DataTable())
                 {
@@ -39,17 +40,31 @@ public partial class MenuTipoActividades : System.Web.UI.Page
         cs.RegisterClientScriptBlock(cstype, s, s.ToString());
     }
 
+    public String ObtieneGaleria()
+    {
+        String listaIMGS = "";
+        if (txtGaleria.HasFiles)
+        {
+            foreach (HttpPostedFile uploadedFile in txtGaleria.PostedFiles)
+            {
+                uploadedFile.SaveAs(System.IO.Path.Combine(Server.MapPath("../Images/Noticias/"), uploadedFile.FileName));
+                listaIMGS += "../Images/Noticias/" + uploadedFile.FileName + ",";
+            }
+        }
+        listaIMGS = listaIMGS.Remove(listaIMGS.Length - 1);
+        return listaIMGS;
+    }
+
     protected void Insert(object sender, EventArgs e)
     {
-        string nombre = txtNombre.Text;
+        
+        string titulo = txtTitulo.Text;
         string descripcion = txtDescripcion.Text;
-        if(!nombre.Equals("") || !descripcion.Equals(""))
+        if (!titulo.Equals("") || !descripcion.Equals(""))
         {
             try
             {
-                txtNombre.Text = "";
-                txtDescripcion.Text = "";
-                string query = "INSERT INTO tipoActividad VALUES(@Nombre, @Descripcion)";
+                string query = "insert into noticia(titulo,descripcion,galeria) values (@titulo, @descripcion, @galeria)";
 
                 var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
 
@@ -57,17 +72,22 @@ public partial class MenuTipoActividades : System.Web.UI.Page
                 {
                     using (NpgsqlCommand cmd = new NpgsqlCommand(query))
                     {
-                        cmd.Parameters.AddWithValue("@Nombre", nombre);
-                        cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@titulo", titulo);
+                        cmd.Parameters.AddWithValue("@descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@galeria", ObtieneGaleria());
                         cmd.Connection = con;
                         con.Open();
                         cmd.ExecuteNonQuery();
                         con.Close();
                     }
                 }
+                MsgBox("¡Se registró la noticia!", Page, this);
+
+                txtTitulo.Text = "";
+                txtDescripcion.Text = "";
                 this.BindGrid();
             }
-            catch(NpgsqlException ex)
+            catch (NpgsqlException ex)
             {
 
             }
@@ -76,7 +96,7 @@ public partial class MenuTipoActividades : System.Web.UI.Page
         {
             MsgBox("Es necesario que rellene todos los espacios.", Page, this);
         }
-        
+
     }
     protected void OnRowEditing(object sender, GridViewEditEventArgs e)
     {
@@ -86,18 +106,18 @@ public partial class MenuTipoActividades : System.Web.UI.Page
     protected void OnRowUpdating(object sender, GridViewUpdateEventArgs e)
     {
         GridViewRow row = GridView1.Rows[e.RowIndex];
-        string nombre = (string) GridView1.DataKeys[e.RowIndex].Values[0];
-        string NuevoName = (row.FindControl("txtNombre") as TextBox).Text;
+        string titulo = (string)GridView1.DataKeys[e.RowIndex].Values[0];
+        string NuevoTitulo = (row.FindControl("txtTitulo") as TextBox).Text;
         string descripcion = (row.FindControl("txtDescripcion") as TextBox).Text;
-        string query = "UPDATE tipoActividad SET nombre=@Nombre, descripcion=@Descripcion WHERE nombre=@NombreViejo";
+        string query = "UPDATE noticia SET titulo=@Titulo, descripcion=@Descripcion WHERE titulo=@TituloViejo";
         var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
 
         using (NpgsqlConnection con = new NpgsqlConnection(connString))
         {
             using (NpgsqlCommand cmd = new NpgsqlCommand(query))
             {
-                cmd.Parameters.AddWithValue("@NombreViejo", nombre);
-                cmd.Parameters.AddWithValue("@Nombre", NuevoName);
+                cmd.Parameters.AddWithValue("@TituloViejo", titulo);
+                cmd.Parameters.AddWithValue("@Titulo", NuevoTitulo);
                 cmd.Parameters.AddWithValue("@Descripcion", descripcion);
                 cmd.Connection = con;
                 con.Open();
@@ -115,14 +135,14 @@ public partial class MenuTipoActividades : System.Web.UI.Page
     }
     protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        string nombre = (string) GridView1.DataKeys[e.RowIndex].Values[0];
-        string query = "DELETE FROM tipoActividad WHERE nombre=@nombre";
+        string titulo = (string)GridView1.DataKeys[e.RowIndex].Values[0];
+        string query = "DELETE FROM noticia WHERE titulo=@titulo";
         var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
         using (NpgsqlConnection con = new NpgsqlConnection(connString))
         {
             using (NpgsqlCommand cmd = new NpgsqlCommand(query))
             {
-                cmd.Parameters.AddWithValue("@nombre", nombre);
+                cmd.Parameters.AddWithValue("@titulo", titulo);
                 cmd.Connection = con;
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -135,7 +155,7 @@ public partial class MenuTipoActividades : System.Web.UI.Page
     {
         if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != GridView1.EditIndex)
         {
-            (e.Row.Cells[2].Controls[2] as LinkButton).Attributes["onclick"] = "return confirm('Desea eliminar este tipo de actividad?');";
+            (e.Row.Cells[3].Controls[2] as LinkButton).Attributes["onclick"] = "return confirm('Desea eliminar esta Noticia?');";
         }
     }
     protected void OnPaging(object sender, GridViewPageEventArgs e)
