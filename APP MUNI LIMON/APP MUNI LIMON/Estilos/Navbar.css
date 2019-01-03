@@ -140,8 +140,56 @@ body {
     font-size: 13px;
 }
 
-.logo_muni {
-    background-image: url('https://drive.google.com/file/d/1AxX9h1QDphzGvVrFRXtiC4-_vrEwiFy4/view?usp=sharing');
-    background-repeat: no-repeat;
-    background-position: 50% 10px;
+.TablaGrid {
+    background-color: #fff;
+    margin: 5px 0 10px 0;
+    border: solid 1px #525252;
+    border-collapse: collapse;
 }
+
+    /* Texto del Contenido de la Tabla*/
+    .TablaGrid td {
+        padding: 2px;
+        border: solid 1px #c1c1c1;
+        color: #717171;
+    }
+
+    /* Texto de los Titulos de la Tabla*/
+    .TablaGrid th {
+        padding: 4px 2px;
+        color: #fff;
+        background: #009400 url(grd_head.png) repeat-x top;
+        border-left: solid 1px #525252;
+        font-size: 0.9em;
+    }
+
+    .TablaGrid .alt {
+        background: #fcfcfc url(grd_alt.png) repeat-x top;
+    }
+
+    .TablaGrid .pgr {
+        background: #424242 url(grd_pgr.png) repeat-x top;
+    }
+
+        .TablaGrid .pgr table {
+            margin: 5px 0;
+        }
+
+        .TablaGrid .pgr td {
+            border-width: 0;
+            padding: 0 6px;
+            border-left: solid 1px #666;
+            font-weight: bold;
+            color: #fff;
+            line-height: 12px;
+        }
+
+        .TablaGrid .pgr a {
+            color: #666;
+            text-decoration: none;
+        }
+
+            .TablaGrid .pgr a:hover {
+                color: #000;
+                text-decoration: none;
+            }

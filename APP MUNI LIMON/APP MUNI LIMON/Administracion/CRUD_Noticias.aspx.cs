@@ -43,18 +43,18 @@ public partial class Administracion_CRUD_Noticias : System.Web.UI.Page
     public String ObtieneGaleria()
     {
         String listaIMGS = "";
-        if (txtGaleria.HasFiles)
+        if (fileGaleria.HasFiles)
         {
-            foreach (HttpPostedFile uploadedFile in txtGaleria.PostedFiles)
+            foreach (HttpPostedFile uploadedFile in fileGaleria.PostedFiles)
             {
-                uploadedFile.SaveAs(System.IO.Path.Combine(Server.MapPath("../Images/Noticias/"), uploadedFile.FileName));
-                listaIMGS += "../Images/Noticias/" + uploadedFile.FileName + ",";
+                uploadedFile.SaveAs(System.IO.Path.Combine(Server.MapPath("~/Images/Noticias/"), uploadedFile.FileName));
+                listaIMGS += "~/Images/Noticias/" + uploadedFile.FileName + ",";
             }
         }
-        listaIMGS = listaIMGS.Remove(listaIMGS.Length - 1);
+        //listaIMGS = listaIMGS.Remove(listaIMGS.Length - 1);
         return listaIMGS;
     }
-
+    
     protected void Insert(object sender, EventArgs e)
     {
         
@@ -65,7 +65,7 @@ public partial class Administracion_CRUD_Noticias : System.Web.UI.Page
             try
             {
                 string query = "insert into noticia(titulo,descripcion,galeria) values (@titulo, @descripcion, @galeria)";
-
+                string lista = ObtieneGaleria();
                 var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
 
                 using (NpgsqlConnection con = new NpgsqlConnection(connString))
@@ -74,7 +74,7 @@ public partial class Administracion_CRUD_Noticias : System.Web.UI.Page
                     {
                         cmd.Parameters.AddWithValue("@titulo", titulo);
                         cmd.Parameters.AddWithValue("@descripcion", descripcion);
-                        cmd.Parameters.AddWithValue("@galeria", ObtieneGaleria());
+                        cmd.Parameters.AddWithValue("@galeria", lista);
                         cmd.Connection = con;
                         con.Open();
                         cmd.ExecuteNonQuery();
@@ -98,6 +98,7 @@ public partial class Administracion_CRUD_Noticias : System.Web.UI.Page
         }
 
     }
+    
     protected void OnRowEditing(object sender, GridViewEditEventArgs e)
     {
         GridView1.EditIndex = e.NewEditIndex;
@@ -155,7 +156,7 @@ public partial class Administracion_CRUD_Noticias : System.Web.UI.Page
     {
         if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != GridView1.EditIndex)
         {
-            (e.Row.Cells[3].Controls[2] as LinkButton).Attributes["onclick"] = "return confirm('Desea eliminar esta Noticia?');";
+            (e.Row.Cells[2].Controls[2] as LinkButton).Attributes["onclick"] = "return confirm('Desea eliminar esta Noticia?');";
         }
     }
     protected void OnPaging(object sender, GridViewPageEventArgs e)
