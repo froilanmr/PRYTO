@@ -26,4 +26,9 @@ public partial class Administracion_MENU : System.Web.UI.Page
     {
         Response.Redirect("CRUD_Noticias.aspx");
     }
+
+    protected void LinkButton5_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("READ_Sugerencias.aspx");
+    }
 }

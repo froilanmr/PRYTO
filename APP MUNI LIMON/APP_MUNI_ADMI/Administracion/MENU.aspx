@@ -66,7 +66,7 @@
                     </asp:LinkButton>
                 </div>  
                 <div style="float:left; margin:10px">
-                    <asp:LinkButton ID="LinkButton5" runat="server" Width="100%">
+                    <asp:LinkButton ID="LinkButton5" runat="server" Width="100%" OnClick="LinkButton5_Click">
                         <asp:Image ID="Image6" runat="server" ImageUrl="~/imgs/suggest.png" BackColor="Transparent" Height="157px" Width="156px" />
                         <br />
                         <asp:Label ID="Label6" runat="server" Text="Buzón de Sugerencias"></asp:Label>

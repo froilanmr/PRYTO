@@ -50,7 +50,7 @@
         </ul>
         <ul class="topnav">
             <!--<li><a href="MenuActividades">Menú</a></li>-->
-            <li><a>Buzón de Sugerencias</a></li>
+            <li><a href="READ_Sugerencias.aspx">Buzón de Sugerencias</a></li>
             <li><a>Estadísticas</a></li>
             <li><a>Inscripciones</a></li>
             <li><a href="#">Noticias</a></li>
