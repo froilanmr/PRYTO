@@ -13,7 +13,8 @@
     function BlockUI(elementID) {
         var prm = Sys.WebForms.PageRequestManager.getInstance();
         prm.add_beginRequest(function () {
-            $("#" + elementID).block({ message: '<div align = "center">' + '<img src="../imgs/loadingAnim.gif"/></div>',
+            $("#" + elementID).block({
+                message: '<div align = "center">' + '<img src="../imgs/loadingAnim.gif"/></div>',
                 css: {},
                 overlayCSS: { backgroundColor: '#000000', opacity: 0.6, border: '3px solid #63B2EB' }
             });

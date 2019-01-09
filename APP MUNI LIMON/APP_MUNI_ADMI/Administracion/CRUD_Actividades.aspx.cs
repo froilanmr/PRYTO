@@ -51,7 +51,7 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
         **/
         NpgsqlConnection conx = new NpgsqlConnection("Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc");
         conx.Open();
-        var cmd = new NpgsqlCommand("SELECT * FROM tipoActividad", conx);
+        var cmd = new NpgsqlCommand("SELECT * FROM tipoActividad where isBorrado=0", conx);
         NpgsqlDataReader leer = cmd.ExecuteReader();
 
         while (leer.Read())
@@ -133,30 +133,39 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
         string direccion = (row.FindControl("txtDireccion") as TextBox).Text;
         string descripcion = (row.FindControl("txtDescripcion") as TextBox).Text;
         string cupos = (row.FindControl("txtCupos") as TextBox).Text;
+        
 
-        string query = "UPDATE actividad SET nombre=@Nombre, descripcion=@Descripcion, tipoActividad=@Tipo, " +
-            "direccion=@Direccion, fecha=@Fecha, cupos=@Cupos WHERE nombre=@NombreViejo";
-        var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
-
-        using (NpgsqlConnection con = new NpgsqlConnection(connString))
+        if (NuevoNombre.Equals("") || tipo.Equals("") || fecha.Equals("")
+            || direccion.Equals("") || descripcion.Equals("") || !cupos.Equals("") || txtTipo.SelectedIndex.Equals(-1))
         {
-            using (NpgsqlCommand cmd = new NpgsqlCommand(query))
+            string query = "UPDATE actividad SET nombre=@Nombre, descripcion=@Descripcion, tipoActividad=@Tipo, " +
+            "direccion=@Direccion, fecha=@Fecha, cupos=@Cupos WHERE nombre=@NombreViejo";
+            var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
+
+            using (NpgsqlConnection con = new NpgsqlConnection(connString))
             {
-                cmd.Parameters.AddWithValue("@NombreViejo", nombre);
-                cmd.Parameters.AddWithValue("@Nombre", NuevoNombre);
-                cmd.Parameters.AddWithValue("@Tipo", tipo);
-                cmd.Parameters.AddWithValue("@Descripcion", descripcion);
-                cmd.Parameters.AddWithValue("@Direccion", direccion);
-                cmd.Parameters.AddWithValue("@Fecha", fecha);
-                cmd.Parameters.AddWithValue("@Cupos", Int32.Parse(cupos));
-                cmd.Connection = con;
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query))
+                {
+                    cmd.Parameters.AddWithValue("@NombreViejo", nombre);
+                    cmd.Parameters.AddWithValue("@Nombre", NuevoNombre);
+                    cmd.Parameters.AddWithValue("@Tipo", tipo);
+                    cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                    cmd.Parameters.AddWithValue("@Direccion", direccion);
+                    cmd.Parameters.AddWithValue("@Fecha", fecha);
+                    cmd.Parameters.AddWithValue("@Cupos", Int32.Parse(cupos));
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
             }
+            GridView1.EditIndex = -1;
+            this.BindGrid();
         }
-        GridView1.EditIndex = -1;
-        this.BindGrid();
+        else
+        {
+            MsgBox("No se permite la actualización a Espacios Vacíos.", Page, this);
+        }
     }
     protected void OnRowCancelingEdit(object sender, EventArgs e)
     {
@@ -194,7 +203,7 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
                 ListBox listaNueva = (ListBox)e.Row.FindControl("txtTipo");
                 NpgsqlConnection conx = new NpgsqlConnection("Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc");
                 conx.Open();
-                var cmd = new NpgsqlCommand("SELECT * FROM tipoActividad", conx);
+                var cmd = new NpgsqlCommand("SELECT * FROM tipoActividad where isBorrado=0", conx);
                 NpgsqlDataReader leer = cmd.ExecuteReader();
 
                 while (leer.Read())

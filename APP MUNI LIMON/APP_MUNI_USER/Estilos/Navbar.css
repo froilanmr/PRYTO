@@ -1,0 +1,195 @@
+﻿/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+ul.topnav {
+    list-style-type: none;
+    margin: 15px;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+}
+
+ul.topnav1 {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #009400;
+}
+
+ul.topnav2 {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #009ce7;
+}
+
+    ul.topnav li, ul.topnav1 li, ul.topnav2 li {
+        float: right;
+    }
+
+        ul.topnav li a {
+            display: block;
+            color: #666;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border: 0 none;
+            border-radius: 1px;
+            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+        }
+
+html {
+    height: 100%;
+    /*Image only BG fallback*/
+    /*background = gradient + image pattern combo*/
+}
+
+body {
+    font-family: montserrat, arial, verdana;
+    margin: 0;
+}
+
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right,
+    ul.topnav li {
+        float: none;
+    }
+}
+
+#form1 fieldset {
+    text-align: center;
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 70px 30px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 5% 10%;
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+    #form1 fieldset:not(:first-of-type) {
+        display: none;
+    }
+
+#form1 input, #msform textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 50%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+#form1 .action-button {
+    width: 100px;
+    background: #009400;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+    #form1 .action-button:hover, #msform .action-button:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+    }
+/*headings*/
+.fs-title {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+}
+
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+.mydropdownlist {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 50%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+.TablaGrid {
+    background-color: #fff;
+    margin: 5px 0 10px 0;
+    border: solid 1px #525252;
+    border-collapse: collapse;
+}
+
+    /* Texto del Contenido de la Tabla*/
+    .TablaGrid td {
+        padding: 2px;
+        border: solid 1px #c1c1c1;
+        color: #717171;
+    }
+
+    /* Texto de los Titulos de la Tabla*/
+    .TablaGrid th {
+        padding: 4px 2px;
+        color: #fff;
+        background: #009400 url(grd_head.png) repeat-x top;
+        border-left: solid 1px #525252;
+        font-size: 0.9em;
+    }
+
+    .TablaGrid .alt {
+        background: #fcfcfc url(grd_alt.png) repeat-x top;
+    }
+
+    .TablaGrid .pgr {
+        background: #424242 url(grd_pgr.png) repeat-x top;
+    }
+
+        .TablaGrid .pgr table {
+            margin: 5px 0;
+        }
+
+        .TablaGrid .pgr td {
+            border-width: 0;
+            padding: 0 6px;
+            border-left: solid 1px #666;
+            font-weight: bold;
+            color: #fff;
+            line-height: 12px;
+        }
+
+        .TablaGrid .pgr a {
+            color: #666;
+            text-decoration: none;
+        }
+
+            .TablaGrid .pgr a:hover {
+                color: #000;
+                text-decoration: none;
+            }
