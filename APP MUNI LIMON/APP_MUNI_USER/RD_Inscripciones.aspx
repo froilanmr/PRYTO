@@ -41,33 +41,48 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <ul class="topnav1">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
-        </ul>
-        <ul class="topnav2">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
-        </ul>
+        <ul class="topnav1"></ul>
+        <ul class="topnav2"></ul>
         <ul class="topnav">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
-            <li><a href="READ_Sugerencias.aspx">Buzón de Sugerencias</a></li>
-            <li><a>Estadísticas</a></li>
+            <asp:Label ID="Label9" runat="server" Text="Usuario Online: " Font-Size="Large"></asp:Label>
+            <asp:Label ID="lblOnline" runat="server" Font-Size="Large"></asp:Label>
+            <asp:Button ID="btnCerrar" runat="server" Text="Cerrar Sesión" Width="178px" OnClick="btnCerrar_Click" Font-Size="Medium" />
+            <li><a href="Perfil.aspx">Perfil</a></li>
+            <li><a href="CRUD_Sugerencias.aspx">Sugerencias</a></li>
             <li><a href="#">Inscripciones</a></li>
-            <li><a href="CRUD_Noticias.aspx">Noticias</a></li>
-            <li><a href="CRUD_Actividades.aspx">Actividades</a></li>
-            <li><a href="CRUD_TipoActividad.aspx">Tipos de Actividades</a></li>
+            <li><a href="READ_Noticias.aspx">Noticias</a></li>
+            <li><a href="Actividades.aspx">Actividades</a></li>
         </ul>
+        <div style="margin-left: 37%">
+            <asp:Label ID="Label5" runat="server" Text="Mis Inscripciones" Font-Bold="True" Font-Names="Arial" Font-Size="XX-Large"></asp:Label>
+        </div>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div id="dvGrid" style="padding-left: 300px; padding-top: 50px" class="auto-style2">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false"
-                        DataKeyNames="Actividad" PageSize="5" AllowPaging="true" OnPageIndexChanging="OnPaging"
-                        OnRowDeleting="OnRowDeleting" EmptyDataText="Actualmente no posee inscripciones."
+                        DataKeyNames="Nombre" PageSize="5" AllowPaging="true" OnPageIndexChanging="OnPaging"
+                        OnRowDeleting="OnRowDeleting" OnRowDataBound="OnRowDataBound" EmptyDataText="Actualmente no posee inscripciones."
                         Width="932px" Height="201px" CssClass="TablaGrid">
                         <Columns>
-                            <asp:TemplateField HeaderText="Nombre de la Actividad" ItemStyle-Width="150">
+                            <asp:TemplateField HeaderText="Nombre" ItemStyle-Width="150">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblActividad" runat="server" Text='<%# Eval("Actividad") %>'></asp:Label>
+                                    <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("Nombre") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Fecha de la Actividad" ItemStyle-Width="150">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblFecha" runat="server" Text='<%# Eval("Fecha") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Dirección de la Actividad" ItemStyle-Width="150">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDireccion" runat="server" Text='<%# Eval("Direccion") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Descripción de la Actividad" ItemStyle-Width="150">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDescripcion" runat="server" Text='<%# Eval("Descripcion") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:CommandField ButtonType="Link" ShowDeleteButton="true"
@@ -75,12 +90,11 @@
                         </Columns>
                     </asp:GridView>
                 </ContentTemplate>
-                <Triggers>
-                    <asp:PostBackTrigger ControlID="btnAdd" />
-                </Triggers>
             </asp:UpdatePanel>
         </div>
-
+        <div style="padding-top: 10px; padding-left: 65%; height: 0px">
+            <asp:Label ID="Label7" runat="server" Text="Actividades Municipalidad Limón" Font-Bold="True" Font-Size="Small"></asp:Label>
+        </div>
     </form>
 </body>
 </html>

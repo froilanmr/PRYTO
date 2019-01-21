@@ -11,12 +11,13 @@ public partial class MenuTipoActividades : System.Web.UI.Page
         if (!this.IsPostBack)
         {
             this.BindGrid();
+            lblOnline.Text = (string)Session["nombre"];
         }
     }
     private void BindGrid()
     {
         var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
-        string query = "select nombre, descripcion from tipoActividad where isBorrado=0";
+        string query = "select nombre, descripcion from tipoActividad where isBorrado=0 order by fechaEntrada DESC";
         using (NpgsqlConnection conn = new NpgsqlConnection(connString))
         {
             using(NpgsqlDataAdapter sda = new NpgsqlDataAdapter(query, conn))
@@ -43,13 +44,17 @@ public partial class MenuTipoActividades : System.Web.UI.Page
     {
         string nombre = txtNombre.Text;
         string descripcion = txtDescripcion.Text;
-        if(!nombre.Equals("") || !descripcion.Equals(""))
+
+        String fechaEntrada = DateTime.Today.ToString("yyyy/MM/dd");
+        String horaEntrada = DateTime.Now.ToString("HH:mm:ss");
+
+        if (!nombre.Equals("") || !descripcion.Equals(""))
         {
             try
             {
                 txtNombre.Text = "";
                 txtDescripcion.Text = "";
-                string query = "INSERT INTO tipoActividad VALUES(@Nombre, @Descripcion, 0)";
+                string query = "INSERT INTO tipoActividad VALUES(@Nombre, @Descripcion, 0, @FechaEntrada)";
 
                 var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
 
@@ -59,6 +64,7 @@ public partial class MenuTipoActividades : System.Web.UI.Page
                     {
                         cmd.Parameters.AddWithValue("@Nombre", nombre);
                         cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@FechaEntrada", fechaEntrada + " " + horaEntrada);
                         cmd.Connection = con;
                         con.Open();
                         cmd.ExecuteNonQuery();
@@ -142,5 +148,10 @@ public partial class MenuTipoActividades : System.Web.UI.Page
     {
         GridView1.PageIndex = e.NewPageIndex;
         this.BindGrid();
+    }
+
+    protected void btnCerrar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("../Login.aspx");
     }
 }

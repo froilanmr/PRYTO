@@ -18,6 +18,9 @@
             width: 880px;
             margin-left: 0;
         }
+        .auto-style3 {
+            height: 9px;
+        }
     </style>
 </head>
 <body>
@@ -28,10 +31,17 @@
         <ul class="topnav2">
             <!--<li><a href="MenuActividades">Menú</a></li>-->
         </ul>
-        <div style="margin-left:90%; margin-top:5px">
-            <asp:Button ID="Button1" runat="server" Text="Cerrar Sesión" Width="112px" OnClick="Button1_Click" />
+        <ul class="topnav">
+            <asp:Label ID="Label9" runat="server" Text="Usuario Online: " Font-Size="Large"></asp:Label>
+            <asp:Label ID="lblOnline" runat="server" Font-Size="Large"></asp:Label>
+            <asp:Button ID="btnCerrar" runat="server" Text="Cerrar Sesión" Width="178px" OnClick="btnCerrar_Click" Font-Size="Medium" />
+        </ul>
+        <div>
+            <div style="margin-left:40%">
+                <asp:Label ID="Label5" runat="server" Text="Menú Principal" Font-Bold="True" Font-Names="Arial" Font-Size="XX-Large"></asp:Label>
+            </div>
         </div>
-        <fieldset style="padding-left: 170px; display:inline-block" class="auto-style1">
+        <fieldset style="padding-left: 170px; margin-top:50px; height:338px; display:inline-block" class="auto-style1">
             <div style="border-radius:5px; display:flex; justify-content: space-around;" class="auto-style2">
                 <div style="float:left;	margin: 10px;">
                     <asp:LinkButton ID="LinkButton1" runat="server" Width="100%" OnClick="LinkButton1_Click">
@@ -48,7 +58,7 @@
                     </asp:LinkButton>
                 </div>
                 <div style="float:left;	margin: 10px;">
-                    <asp:LinkButton ID="LinkButton3" runat="server" Width="100%">
+                    <asp:LinkButton ID="LinkButton3" runat="server" Width="100%" OnClick="LinkButton3_Click">
                         <asp:Image ID="Image4" runat="server" ImageUrl="~/imgs/inscriptions.png" BackColor="Transparent" Height="157px" Width="156px" />
                         <br />
                         <asp:Label ID="Label3" runat="server" Text="Ver mis Inscripciones"></asp:Label>
@@ -68,6 +78,9 @@
                         <asp:Label ID="Label4" runat="server" Text="Perfíl"></asp:Label>
                     </asp:LinkButton>
                 </div>
+            </div>
+            <div style="padding-top:20px; padding-left:78%; height:0px">
+                <asp:Label ID="Label7" runat="server" Text="Actividades Municipalidad Limón" Font-Bold="True" Font-Size="Small"></asp:Label>
             </div>
         </fieldset>
     </form>

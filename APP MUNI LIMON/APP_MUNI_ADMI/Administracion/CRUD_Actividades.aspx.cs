@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
 {
@@ -14,6 +16,7 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
         if (!this.IsPostBack)
         {
             this.BindGrid();
+            lblOnline.Text = (string)Session["nombre"];
         }
         if (!(txtTipo.Items.Count > 0))
         {
@@ -31,7 +34,7 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
     private void BindGrid()
     {
         var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
-        string query = "select nombre,tipoActividad, fecha, direccion, descripcion, cupos from actividad where isBorrado=0";
+        string query = "select nombre,tipoActividad, fecha, direccion, descripcion, cupos from actividad where isBorrado=0 order by fechaEntrada DESC";
         using (NpgsqlConnection conn = new NpgsqlConnection(connString))
         {
             using (NpgsqlDataAdapter sda = new NpgsqlDataAdapter(query, conn))
@@ -44,11 +47,8 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
                 }
             }
         }
+        txtTipo.Items.Clear();
 
-        /**
-         * Sección de Codigo donde carga la lista de actividades disponibles 
-         * 
-        **/
         NpgsqlConnection conx = new NpgsqlConnection("Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc");
         conx.Open();
         var cmd = new NpgsqlCommand("SELECT * FROM tipoActividad where isBorrado=0", conx);
@@ -73,6 +73,10 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
     protected void Insert(object sender, EventArgs e)
     {
         String listaIMGS = "";
+
+        String fechaEntrada = DateTime.Today.ToString("yyyy/MM/dd");
+        String horaEntrada = DateTime.Now.ToString("HH:mm:ss");
+
         if (!txtNombre.Text.Equals("") || !txtFecha.Text.Equals("") || !txtDireccion.Text.Equals("")
             || !txtDescripcion.Text.Equals("") || !txtCupos.Text.Equals("") || txtTipo.SelectedIndex.Equals(-1))
         {
@@ -80,35 +84,43 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
             {
                 foreach (HttpPostedFile uploadedFile in fileGaleria.PostedFiles)
                 {
-                    uploadedFile.SaveAs(System.IO.Path.Combine(Server.MapPath("~/Images/Actividades/"), uploadedFile.FileName));
-                    listaIMGS += "~/Images/Actividades/" + uploadedFile.FileName + ",";
+                    listaIMGS += "/Images/Actividades/" + uploadedFile.FileName + ",";
                 }
                 listaIMGS = listaIMGS.Remove(listaIMGS.Length - 1);
             }
-            try
+            DateTime dt1 = DateTime.Parse(txtFecha.Text);
+            DateTime dt2 = DateTime.Now;
+            if (dt1 >= dt2)
             {
-                /* Conexión e inserción a la base de datos*/
-                NpgsqlConnection conectar = new NpgsqlConnection();
-                conectar.ConnectionString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
-                conectar.Open();
-                NpgsqlCommand insertar = new NpgsqlCommand("insert into actividad values ('" + txtNombre.Text + "', '" + txtFecha.Text +
-                    "', '" + txtTipo.Text + "', '" + txtDireccion.Text + "', '" + txtDescripcion.Text + "', " +
-                    Int32.Parse(txtCupos.Text) + ", '" + listaIMGS + "', 0)", conectar);
-                insertar.ExecuteNonQuery();
-                conectar.Close();
+                try
+                {
+                    /* Conexión e inserción a la base de datos*/
+                    NpgsqlConnection conectar = new NpgsqlConnection();
+                    conectar.ConnectionString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
+                    conectar.Open();
+                    NpgsqlCommand insertar = new NpgsqlCommand("insert into actividad values ('" + txtNombre.Text + "', '" + txtFecha.Text +
+                        "', '" + txtTipo.Text + "', '" + txtDireccion.Text + "', '" + txtDescripcion.Text + "', " +
+                        Int32.Parse(txtCupos.Text) + ", '" + listaIMGS + "', 0, '" + (fechaEntrada + " " + horaEntrada) + "')", conectar);
+                    insertar.ExecuteNonQuery();
+                    conectar.Close();
 
-                MsgBox("¡Se registró la actividad!", Page, this);
+                    MsgBox("¡Se registró la actividad!", Page, this);
 
-                this.BindGrid();
-                txtNombre.Text = "";
-                txtFecha.Text = "";
-                txtDireccion.Text = "";
-                txtDescripcion.Text = "";
-                txtCupos.Text = "";
+                    this.BindGrid();
+                    txtNombre.Text = "";
+                    txtFecha.Text = "";
+                    txtDireccion.Text = "";
+                    txtDescripcion.Text = "";
+                    txtCupos.Text = "";
+                }
+                catch (Exception ex) // Excepción en caso de datos duplicados
+                {
+                    MsgBox("¡Error en la Inserción, verifique los datos.", Page, this);
+                }
             }
-            catch (Exception ex) // Excepción en caso de datos duplicados
+            else
             {
-                MsgBox("¡Error en la Inserción, verifique los datos.", Page, this);
+                MsgBox("La fecha de la Actividad es Inválida.", Page, this);
             }
         }
         else
@@ -142,22 +154,29 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
             "direccion=@Direccion, fecha=@Fecha, cupos=@Cupos WHERE nombre=@NombreViejo";
             var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
 
-            using (NpgsqlConnection con = new NpgsqlConnection(connString))
+            try
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand(query))
+                using (NpgsqlConnection con = new NpgsqlConnection(connString))
                 {
-                    cmd.Parameters.AddWithValue("@NombreViejo", nombre);
-                    cmd.Parameters.AddWithValue("@Nombre", NuevoNombre);
-                    cmd.Parameters.AddWithValue("@Tipo", tipo);
-                    cmd.Parameters.AddWithValue("@Descripcion", descripcion);
-                    cmd.Parameters.AddWithValue("@Direccion", direccion);
-                    cmd.Parameters.AddWithValue("@Fecha", fecha);
-                    cmd.Parameters.AddWithValue("@Cupos", Int32.Parse(cupos));
-                    cmd.Connection = con;
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query))
+                    {
+                        cmd.Parameters.AddWithValue("@NombreViejo", nombre);
+                        cmd.Parameters.AddWithValue("@Nombre", NuevoNombre);
+                        cmd.Parameters.AddWithValue("@Tipo", tipo);
+                        cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@Direccion", direccion);
+                        cmd.Parameters.AddWithValue("@Fecha", fecha);
+                        cmd.Parameters.AddWithValue("@Cupos", Int32.Parse(cupos));
+                        cmd.Connection = con;
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
                 }
+            }
+            catch(NpgsqlException ex)
+            {
+                MsgBox("Se presentó la siguiente excepción: " + ex, Page, this);
             }
             GridView1.EditIndex = -1;
             this.BindGrid();
@@ -219,5 +238,10 @@ public partial class Administracion_CRUD_Actividades : System.Web.UI.Page
     {
         GridView1.PageIndex = e.NewPageIndex;
         this.BindGrid();
+    }
+
+    protected void btnCerrar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("../Login.aspx");
     }
 }

@@ -37,21 +37,22 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <ul class="topnav1">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
-        </ul>
-        <ul class="topnav2">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
-        </ul>
+        <ul class="topnav1"></ul>
+        <ul class="topnav2"></ul>
         <ul class="topnav">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
+            <asp:Label ID="Label1" runat="server" Text="Usuario Online: " Font-Size="Large"></asp:Label>
+            <asp:Label ID="lblOnline" runat="server" Font-Size="Large"></asp:Label>
+            <asp:Button ID="btnCerrar" runat="server" Text="Cerrar Sesión" Width="178px" OnClick="btnCerrar_Click" Font-Size="Medium" />
             <li><a href="READ_Sugerencias.aspx">Buzón de Sugerencias</a></li>
-            <li><a>Estadísticas</a></li>
-            <li><a>Inscripciones</a></li>
+            <li><a href="Estadisticas.aspx">Estadísticas</a></li>
+            <li><a href="RD_Inscripciones.aspx">Inscripciones</a></li>
             <li><a href="CRUD_Noticias.aspx">Noticias</a></li>
             <li><a href="#">Actividades</a></li>
             <li><a href="CRUD_TipoActividad.aspx">Tipos de Actividades</a></li>
         </ul>
+        <div style="margin-left: 40%">
+            <asp:Label ID="Label5" runat="server" Text="Menú de Actividades" Font-Bold="True" Font-Names="Arial" Font-Size="XX-Large"></asp:Label>
+        </div>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div id="dvGrid" style="padding-left:300px;padding-top: 50px" class="auto-style2">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -166,6 +167,9 @@
                 </table>
             </div>
             <asp:Button ID="btnAdd" runat="server" class="next action-button" Height="55px" OnClick="Insert" Text="Agregar" Width="212px" />
+            <div style="padding-top: 20px; padding-left: 48%; height: 0px">
+                <asp:Label ID="Label7" runat="server" Text="Actividades Municipalidad Limón" Font-Bold="True" Font-Size="Small"></asp:Label>
+            </div>
         </fieldset>
     </form>
 </body>

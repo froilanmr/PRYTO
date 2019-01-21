@@ -4,95 +4,100 @@
 
 <html>
 <head runat="server">
-    <title>Carousel Slider</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript">  
-        $(document).ready(function () {
-            $("#GridView1").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
-        });
-    </script>
-    <style>
-        .carousel-inner img {
-            width: 100%;
-            height: 350px;
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Noticias - Municipalidad de Limón</title>
+    <link href="../Estilos/Navbar.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 158px;
+        }
+
+        .auto-style2 {
+            width: auto;
+            height: 210px;
+        }
+
+        .Contenido{
+            margin:16px;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            background: #fff;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        .imagenes{
+            height:250px;
+            margin-top:0px;
+        }
+        .Descripcion{
+            font-family:"Georgia", "Times New Roman", serif;
+            font-style: italic;
+            font-size: 17px;
+            margin: 25px;
+            height: 200px;
+        }
+        .Titulo{
+            font-family: 'Courier New', sans-serif;
+            text-transform: uppercase;
+            color: #000;
+            margin-bottom: 20px;
+            font-size: 19px;
+            text-align: center;
+            text-shadow: 0px 1px 1px #e4ebe9
         }
     </style>
+
+    <!-- Important Owl stylesheet -->
+    <link rel="stylesheet" href="css/owl.carousel.css" />
+    <!-- Default Theme -->
+    <link rel="stylesheet" href="css/owl.theme.default.css" />
+    <!--  jQuery 1.7+  -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include js plugin -->
+    <script src="js/owl.carousel.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container">
-            <h4 class="text-capitalize text-center">Bootstrap Carousel Image Slider with database in asp.net</h4>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                    <asp:Repeater ID="Repeater1" runat="server">
-                        <ItemTemplate>
-                            <div class="carousel-item <%#GetActiveClass(Container.ItemIndex) %>">
-                                <img alt="<%#Eval("ImageName")%>" src="<%#Eval("ImagePath")%>" />
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </div>
-                <a class="carousel-control-prev" href="#myCarousel" data-slide="prev" role="button">
-                    <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#myCarousel" data-slide="next" role="button">
-                    <span class="carousel-control-next-icon"></span>
-                </a>
-            </div>
+        <ul class="topnav1"></ul>
+        <ul class="topnav2"></ul>
+        <ul class="topnav">
+            <asp:Label ID="Label9" runat="server" Text="Usuario Online: " Font-Size="Large"></asp:Label>
+            <asp:Label ID="lblOnline" runat="server" Font-Size="Large"></asp:Label>
+            <asp:Button ID="btnCerrar" runat="server" Text="Cerrar Sesión" Width="178px" OnClick="btnCerrar_Click" Font-Size="Medium" />
+            <li><a href="Perfil.aspx">Perfil</a></li>
+            <li><a href="CRUD_Sugerencias.aspx">Sugerencias</a></li>
+            <li><a href="RD_Inscripciones.aspx">Inscripciones</a></li>
+            <li><a href="#">Noticias</a></li>
+            <li><a href="Actividades.aspx">Actividades</a></li>
+        </ul>
+        <div style="margin-left: 45%">
+            <asp:Label ID="Label5" runat="server" Text="Noticias" Font-Bold="True" Font-Names="Arial" Font-Size="XX-Large"></asp:Label>
         </div>
-        <div class="container">
-            <div class="card" style="margin-bottom: 15px">
-                <div class="card-header bg-primary">
-                    <strong class="card-title text-uppercase text-white">carousel Slider Images</strong>
-                </div>
-                <div class="card-body">
-                    <asp:Button ID="Button1" CssClass="btn btn-primary rounded-0" runat="server" Text="Agregar Imagen" OnClick="Button1_Click" />
-                    <div class="modal fade" id="AddImage">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Modal Heading</h4>
-                                    <button type="button" class="close" data-dismiss="modal">×</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Choose Slider Image</label>
-                                                <div class="custom-file">
-                                                    <asp:FileUpload ID="SliderFileUpload" runat="server" CssClass="custom-file-input" />
-                                                    <label class="custom-file-label"></label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="btn btn-primary rounded-0" OnClick="btnUpload_Click" />
-                                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
+        <div style="margin-left: 30%; margin-top:20px">
+            <asp:Label ID="Label1" runat="server" Text="Deslice hacia la izquierda para ver más noticias" Font-Size="X-Large"></asp:Label>
+        </div>
+        <div id="owl-example" class="owl-carousel" style="margin-left: auto; margin-right:auto; padding-top: 50px">
+            <asp:Repeater ID="Repeater1" runat="server">
+                <ItemTemplate>
+                    <div class="Contenido">
+                        <img class="imagenes" src="<%# DataBinder.Eval(Container.DataItem, "galeria") %>" />
+                        <div style="margin-left:20px">
+                            <div class="Titulo"> <strong> <%# DataBinder.Eval(Container.DataItem, "titulo") %> </strong></div>
+                        </div>
+                        <div style="width:auto">
+                            <div class="Descripcion"><%# DataBinder.Eval(Container.DataItem, "descripcion") %></div>
                         </div>
                     </div>
-                    <asp:GridView ID="GridView1" ShowHeaderWhenEmpty="true" HeaderStyle-CssClass="bg-primary text-white" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered">
-                        <Columns>
-                            <asp:BoundField DataField="Id" HeaderText="ID" />
-                            <asp:BoundField DataField="ImageName" HeaderText="Image Name" />
-                            <asp:ImageField DataImageUrlField="ImagePath" ControlStyle-CssClass="img-thumbnail" ControlStyle-Width="100" ControlStyle-Height="60" HeaderText="Image" />
-                        </Columns>
-                        <EmptyDataTemplate>No Record Available <b>Click Add New Image to add Record</b></EmptyDataTemplate>
-                    </asp:GridView>
-                </div>
-            </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
     </form>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel();
+        });
+    </script>
 </body>
 </html>

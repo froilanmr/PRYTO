@@ -15,6 +15,7 @@ public partial class CRUD_Sugerencias : System.Web.UI.Page
         if (!this.IsPostBack)
         {
             this.BindGrid();
+            lblOnline.Text = (string)Session["nombre"];
         }
     }
 
@@ -22,7 +23,7 @@ public partial class CRUD_Sugerencias : System.Web.UI.Page
     {
         
         var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
-        string query = "select tipoTramite, isAnonima, valoracion, descripcion from sugerencia where isBorrado=0";
+        string query = "select tipoTramite, isAnonima, valoracion, descripcion from sugerencia where isBorrado=0 order by fechaEntrada DESC";
         using (NpgsqlConnection conn = new NpgsqlConnection(connString))
         {
             using (NpgsqlDataAdapter sda = new NpgsqlDataAdapter(query, conn))
@@ -83,6 +84,9 @@ public partial class CRUD_Sugerencias : System.Web.UI.Page
 
     protected void registrarSugerencia_Click(object sender, EventArgs e)
     {
+        String fechaEntrada = DateTime.Today.ToString("yyyy/MM/dd");
+        String horaEntrada = DateTime.Now.ToString("HH:mm:ss");
+
         if (!telefono.Text.Equals("") || !correo.Text.Equals("") || !descripcion.Text.Equals(""))
         {
             if (!valoraciones.SelectedItem.Value.Equals(""))
@@ -93,9 +97,9 @@ public partial class CRUD_Sugerencias : System.Web.UI.Page
                     NpgsqlConnection conectar = new NpgsqlConnection();
                     conectar.ConnectionString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
                     conectar.Open();
-                    NpgsqlCommand insertar = new NpgsqlCommand("insert into sugerencia(isAnonima,correo,telefono, tipoTramite,valoracion,descripcion,isBorrado) values (" +
+                    NpgsqlCommand insertar = new NpgsqlCommand("insert into sugerencia(isAnonima,correo,telefono, tipoTramite,valoracion,descripcion,isBorrado,fechaEntrada) values (" +
                         Anonima + ", '" + correo.Text + "', " + Int32.Parse(telefono.Text) + ",'" + tipoTramite.SelectedItem.Value + "', " + (valoraciones.SelectedIndex + 1) +
-                        ", '" + descripcion.Text + "', 0)", conectar);
+                        ", '" + descripcion.Text + "', 0, '"+ (fechaEntrada + " " + horaEntrada) + "')", conectar);
                     insertar.ExecuteNonQuery();
                     conectar.Close();
 
@@ -110,7 +114,7 @@ public partial class CRUD_Sugerencias : System.Web.UI.Page
                 }
                 catch (Exception ex) // Excepción en caso de datos duplicados
                 {
-                    MsgBox("Eror en la sugerencia.", Page, this);
+                    MsgBox("Eror en la insercion de la sugerencia.", Page, this);
                 }
             }
             else
@@ -235,6 +239,10 @@ public partial class CRUD_Sugerencias : System.Web.UI.Page
     {
         GridView1.PageIndex = e.NewPageIndex;
         this.BindGrid();
+    }
+    protected void btnCerrar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Login.aspx");
     }
 
 }

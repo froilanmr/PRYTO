@@ -47,6 +47,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "APP_MUNI_ADMI", "APP_MUNI_A
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADMI_TEST", "ADMI_TEST\ADMI_TEST.csproj", "{13166E42-AF5D-4B60-BD98-AA0C0B9CD9C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{9F26B79E-A8B0-412C-9FDB-FB976581D0FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F26B79E-A8B0-412C-9FDB-FB976581D0FE}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{9F26B79E-A8B0-412C-9FDB-FB976581D0FE}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{13166E42-AF5D-4B60-BD98-AA0C0B9CD9C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13166E42-AF5D-4B60-BD98-AA0C0B9CD9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13166E42-AF5D-4B60-BD98-AA0C0B9CD9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13166E42-AF5D-4B60-BD98-AA0C0B9CD9C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

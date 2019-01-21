@@ -14,6 +14,7 @@ public partial class Perfil : System.Web.UI.Page
         if (!this.IsPostBack)
         {
             this.CargaDatos();
+            contrasenna.Attributes["type"] = "password";
         }
     }
 
@@ -101,12 +102,7 @@ public partial class Perfil : System.Web.UI.Page
                 MsgBox("¡Se ha actualizado la información del Perfíl!", Page, this);
                 Session["usuario"] = Correo;
                 Session["contra"] = Contraseña;
-
-                /*
-                nombre.Text = "";
-                correo.Text = "";
-                contrasenna.Text = "";
-                telefono.Text = "";*/
+                Session["nombre"] = Nombre;
             }
             catch (NpgsqlException ex)
             {

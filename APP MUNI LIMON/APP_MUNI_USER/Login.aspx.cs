@@ -10,8 +10,9 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Session["usuario"] = null;
-        Session["contra"] = null;
+        Session["usuario"] = "";
+        Session["contra"] = "";
+        Session["nombre"] = "";
     }
 
     protected void btnIngresar_Click(object sender, EventArgs e)
@@ -37,13 +38,14 @@ public partial class Login : System.Web.UI.Page
                     {
                         Session["usuario"] = correoUsuario.Text;
                         Session["contra"] = txtContraseña.Text;
+                        Session["nombre"] = Convert.ToString(leer["nombre"]);
+                        conn.Close();
                         Response.Redirect("MENU.aspx");
                     }
                     else
                     {
                         Response.Write("<script>window.alert('Este usuario no se encuentra registrado.');</script>");
                     }
-                    conn.Close();
                 }
             }
         }

@@ -14,6 +14,7 @@ public partial class Administracion_READ_Sugerencias : System.Web.UI.Page
         if (!this.IsPostBack)
         {
             this.BindGrid();
+            lblOnline.Text = (string)Session["nombre"];
         }
 
     }
@@ -22,7 +23,7 @@ public partial class Administracion_READ_Sugerencias : System.Web.UI.Page
     {
 
         var connString = "Host=baasu.db.elephantsql.com;Username=sylwognc;Password=5JNHiefCNAoEb9-sD1DUJWzEh8k7uMQO;Database=sylwognc";
-        string query = "select tipoTramite, isAnonima, valoracion, descripcion from sugerencia where isBorrado=0";
+        string query = "select tipoTramite, isAnonima, valoracion, descripcion,fechaEntrada from sugerencia where isBorrado=0 order by fechaEntrada DESC";
         using (NpgsqlConnection conn = new NpgsqlConnection(connString))
         {
             using (NpgsqlDataAdapter sda = new NpgsqlDataAdapter(query, conn))
@@ -43,5 +44,10 @@ public partial class Administracion_READ_Sugerencias : System.Web.UI.Page
     {
         GridView1.PageIndex = e.NewPageIndex;
         this.BindGrid();
+    }
+
+    protected void btnCerrar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("../Login.aspx");
     }
 }

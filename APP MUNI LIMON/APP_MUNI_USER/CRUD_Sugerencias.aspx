@@ -38,20 +38,21 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <ul class="topnav1">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
-        </ul>
-        <ul class="topnav2">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
-        </ul>
+        <ul class="topnav1"></ul>
+        <ul class="topnav2"></ul>
         <ul class="topnav">
-            <!--<li><a href="MenuActividades">Menú</a></li>-->
+            <asp:Label ID="Label9" runat="server" Text="Usuario Online: " Font-Size="Large"></asp:Label>
+            <asp:Label ID="lblOnline" runat="server" Font-Size="Large"></asp:Label>
+            <asp:Button ID="btnCerrar" runat="server" Text="Cerrar Sesión" Width="178px" OnClick="btnCerrar_Click" Font-Size="Medium" />
             <li><a href="Perfil.aspx">Perfil</a></li>
             <li><a href="#">Sugerencias</a></li>
-            <li><a href="CRUD_Inscripciones.aspx">Inscripciones</a></li>
+            <li><a href="RD_Inscripciones.aspx">Inscripciones</a></li>
             <li><a href="READ_Noticias.aspx">Noticias</a></li>
-            <li><a href="READ_Actividades.aspx">Actividades</a></li>
+            <li><a href="Actividades.aspx">Actividades</a></li>
         </ul>
+        <div style="margin-left: 40%">
+            <asp:Label ID="Label5" runat="server" Text="Menú de Sugerencias" Font-Bold="True" Font-Names="Arial" Font-Size="XX-Large"></asp:Label>
+        </div>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div id="dvGrid" style="padding-left:300px;padding-top: 50px" class="auto-style2">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -161,8 +162,11 @@
             <asp:TextBox ID="descripcion" runat="server" placeholder="Describe tu experiencia" TextMode="MultiLine" Height="173px" Width="509px"></asp:TextBox>
             <br />
             <br />
-           <asp:Button ID="registrarSugerencia" runat="server" Text="Registrar" class="next action-button" width="300px" OnClick="registrarSugerencia_Click"/>
-       </fieldset>
+            <asp:Button ID="registrarSugerencia" runat="server" Text="Registrar" class="next action-button" Width="300px" OnClick="registrarSugerencia_Click" />
+            <div style="padding-top: 20px; padding-left: 48%; height: 0px">
+                <asp:Label ID="Label7" runat="server" Text="Actividades Municipalidad Limón" Font-Bold="True" Font-Size="Small"></asp:Label>
+            </div>
+        </fieldset>
     </form>
     <ul class="topnav2"></ul>
     <ul class="topnav1"></ul>
